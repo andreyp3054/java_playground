@@ -1,4 +1,4 @@
-package number_to_text_converter;
+package number_to_text_converter;//package number_to_text_converter;
 
 
 import java.text.DecimalFormat;
@@ -42,6 +42,7 @@ public class NumberToTextConverter {
         numberWord.put(30, "Thirty");
         numberWord.put(40, "Forty");
         numberWord.put(50, "Fifty");
+        numberWord.put(80, "Eighty");
 
         //Get user input
         Scanner scanner = new Scanner(System.in);
@@ -57,6 +58,17 @@ public class NumberToTextConverter {
             String formattedText = decimalFormat.format(numberInput);
 
             String[] groups = formattedText.split(",");
+
+            //PRINT THE NUMBERS FIRST
+            for (int i = 0; i < groups.length; i++) {
+                System.out.print(groups[i]);
+                if (i != groups.length - 1) {
+                    System.out.print(",");
+                }
+            }
+            System.out.println();
+
+            //START THE CONVERSION
             int groupPosition = groups.length;
             StringBuilder stringBuilder = new StringBuilder();
             for (String currentGroup : groups) {
@@ -68,7 +80,7 @@ public class NumberToTextConverter {
                 stringBuilder.append(getExactWords(value, groupPosition));
                 groupPosition--;
             }
-            System.out.println(stringBuilder.toString());
+            System.out.println(stringBuilder);
 
         } catch (NumberFormatException e) {
             System.out.println(e.toString());
@@ -76,8 +88,8 @@ public class NumberToTextConverter {
 
     }
 
-    static String getMapValue(Map<Integer, String> map, int key) {
-        return map.getOrDefault(key, "");
+    static String getMapValue(Map<Integer, String> map, int key, String defaultValue) {
+        return map.getOrDefault(key, defaultValue);
     }
 
     static String getExactWords(int value, int groupPosition) {
@@ -87,29 +99,36 @@ public class NumberToTextConverter {
         int remainder = value % 100;
 
         if (hundredNumber > 0) {
-            stringBuilder.append(getMapValue(numberWord, hundredNumber)).append(" Hundred ");
+            stringBuilder.append(String.format("%s %s ", getMapValue(numberWord, hundredNumber, ""), "Hundred"));
         }
         if (remainder > 0) {
             if (!numberWord.containsKey(remainder)) {
                 //IF BELOW 20
                 if (remainder < 20) {
-                    stringBuilder.append(getMapValue(numberWord, remainder)).append("teen");
+                    stringBuilder.append(String.format("%s%s ", getMapValue(numberWord, remainder - 10, ""), "teen"));
                 } else {
-                    int tens = remainder / 10;
-                    int tensRemainder = remainder % 10;
-                    stringBuilder.append(getMapValue(numberWord, tens)).append("ty-");
-                    stringBuilder.append(getMapValue(numberWord, tensRemainder)).append(" ");
+                    int tenths = remainder / 10;
+                    int tenthsRemainder = remainder % 10;
+
+
+                    String notFoundTenthsWord = String.format("%s%s", getMapValue(numberWord, tenths, ""), "ty");
+                    //Find default tenths words first like "TWENTY" before moving to number + "ty"
+                    stringBuilder.append(String.format("%s", getMapValue(numberWord, tenths * 10, notFoundTenthsWord)));
+                    if (tenthsRemainder != 0) {
+                        stringBuilder.append(String.format("-%s ", getMapValue(numberWord, tenthsRemainder, "")));
+                    }
                 }
-            } else { // IF number is single digit
-                stringBuilder.append(getMapValue(numberWord, remainder)).append(" ");
+            } else { // If exact number key is already present
+                stringBuilder.append(String.format("%s ", getMapValue(numberWord, remainder, "")));
             }
         }
 
 
-        stringBuilder.append(getMapValue(groupWord, groupPosition)).append(" ");
+        stringBuilder.append(String.format("%s ", getMapValue(groupWord, groupPosition, "")));
 
         return stringBuilder.toString();
     }
 
 
 }
+
