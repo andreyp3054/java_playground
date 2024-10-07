@@ -1,5 +1,6 @@
 package regionals;
 
+import java.text.DecimalFormat;
 import java.util.*;
 public class TwoTimesDifference {
     public static void main(String[] args) {
@@ -49,8 +50,9 @@ public class TwoTimesDifference {
             higherHour -= 1;
         }
         newHour = Math.abs(higherHour - lowerHour);
+        DecimalFormat format = new DecimalFormat("#00");
 
-        return newHour + ":" + newMinute + ":" + newSecond;
+        return format.format(newHour) + ":" + format.format(newMinute) + ":" + format.format(newSecond);
     }
 
 }
