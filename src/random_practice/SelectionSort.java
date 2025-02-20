@@ -1,3 +1,5 @@
+package random_practice;
+
 import java.util.Arrays;
 
 public class SelectionSort {

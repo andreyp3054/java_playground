@@ -1,5 +1,4 @@
-// Java program for Merge Sort
-import java.io.*;
+package random_practice;// Java program for Merge Sort
 
 class MergeSort {
     // Main function that sorts arr[l..r] using

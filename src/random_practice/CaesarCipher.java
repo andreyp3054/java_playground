@@ -1,4 +1,5 @@
-import java.util.*;
+package random_practice;
+
 public class CaesarCipher {
     public static void main(String[] args) {
         String word = "THE";        // output should be HVS

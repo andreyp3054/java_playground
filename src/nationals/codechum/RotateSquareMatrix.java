@@ -1,4 +1,4 @@
-package codechum_national;
+package nationals.codechum;
 
 import java.util.*;
 

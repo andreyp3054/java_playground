@@ -1,3 +1,5 @@
+package random_practice;
+
 import java.lang.Math;
 public class Narcissistic {
     public static void main(String[] args) {

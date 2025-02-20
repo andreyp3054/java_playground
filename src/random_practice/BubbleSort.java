@@ -1,3 +1,5 @@
+package random_practice;
+
 public class BubbleSort {
     public static void main(String[] args) {
 //        int[] array = {4, 3, 2, 6, 20};

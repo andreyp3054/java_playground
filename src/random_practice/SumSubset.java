@@ -1,6 +1,6 @@
-//import java.util.*;
+package random_practice;//import java.util.*;
 //
-//public class SumSubset {
+//public class random_practice.SumSubset {
 //    public static void main(String[] args) {
 //        Scanner scanner = new Scanner(System.in);
 //        System.out.print("NUMBER OF ELEMENTS: ");
@@ -34,9 +34,6 @@
 
 
 // A recursive solution for subset sum
-
-import java.io.*;
-import java.util.Collections;
 
 class SumSubset {
 
